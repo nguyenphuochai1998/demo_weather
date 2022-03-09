@@ -93,7 +93,7 @@ class WeatherForecastController extends GetxController {
             consolidatedWeather.value!.humidity!.toInt(), (index) => index + 1),
         (int element) async {
       await Future.delayed(Duration(
-          milliseconds: 2000 ~/ consolidatedWeather.value!.humidity!.toInt()));
+          milliseconds: 1500 ~/ consolidatedWeather.value!.humidity!.toInt()));
       dataShowHumidity.value = element;
     });
   }
@@ -105,7 +105,7 @@ class WeatherForecastController extends GetxController {
             (index) => index + 1), (int element) async {
       await Future.delayed(Duration(
           milliseconds:
-              2000 ~/ consolidatedWeather.value!.predictability!.toInt()));
+              1500 ~/ consolidatedWeather.value!.predictability!.toInt()));
       dataShowPredictability.value = element;
     });
   }

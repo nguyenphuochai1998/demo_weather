@@ -70,13 +70,11 @@ class WeeklyCalendarCard extends StatelessWidget {
             );
           }).toList(),
         ),
-        onHorizontalDragUpdate: (details) {
-          // Note: Sensitivity is integer used when you don't want to mess up vertical drag
-          int sensitivity = 5;
-          if (details.delta.dx > sensitivity) {
+        onHorizontalDragEnd: (details) {
+          if (details.primaryVelocity! > 0) {
             // Right Swipe
             onSwipe(true);
-          } else if (details.delta.dx < -sensitivity) {
+          } else if (details.primaryVelocity! < 0) {
             //Left Swipe
             onSwipe(false);
           }

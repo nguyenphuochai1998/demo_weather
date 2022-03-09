@@ -16,35 +16,39 @@ class WeatherForecastView extends GetView<WeatherForecastController> {
     return Obx(
       () {
         return Scaffold(
+          appBar: AppBar(
+            backgroundColor: funBlueColor,
+            title: SizedBox(
+              height: 80,
+              width: double.infinity,
+              child: WeeklyCalendarCard(
+                indexSelected: controller.indexDaySelected.value,
+                listDate: controller.listDateWeek,
+                onChange: (index) {
+                  controller.onChangeDate(index);
+                },
+                onSwipe: (check) {
+                  print(check);
+                  if (check) {
+                    controller.moveLastWeek();
+                  } else {
+                    controller.moveNextWeek();
+                  }
+                },
+              ),
+            ),
+          ),
           body: SafeArea(
             child: SingleChildScrollView(
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SizedBox(
-                    height: 80,
-                    width: double.infinity,
-                    child: WeeklyCalendarCard(
-                      indexSelected: controller.indexDaySelected.value,
-                      listDate: controller.listDateWeek,
-                      onChange: (index) {
-                        controller.onChangeDate(index);
-                      },
-                      onSwipe: (check) {
-                        print(check);
-                        if (check) {
-                          controller.moveLastWeek();
-                        } else {
-                          controller.moveNextWeek();
-                        }
-                      },
-                    ),
-                  ),
                   controller.isDataShowing.value
                       ? controller.consolidatedWeather.value?.theTemp != null
                           ? Column(
                               children: [
                                 Padding(
-                                  padding: const EdgeInsets.all(8.0),
+                                  padding: const EdgeInsets.all(15.0),
                                   child: SizedBox(
                                     height: 80,
                                     child: WeatherStatesTypes.values.first
@@ -122,16 +126,14 @@ class WeatherForecastView extends GetView<WeatherForecastController> {
                                 )
                               ],
                             )
-                          : const Padding(
-                              padding: EdgeInsets.all(20.0),
+                          : Center(
                               child: Text('No Data To Show !!'),
                             )
-                      : const Padding(
-                          padding: EdgeInsets.all(20.0),
-                          child: CircularProgressIndicator(
-                            color: Colors.blue,
-                          ),
-                        ),
+                      : Center(
+                    child: CircularProgressIndicator(
+                      color: Colors.blue,
+                    ),
+                  )
                 ],
               ),
             ),
